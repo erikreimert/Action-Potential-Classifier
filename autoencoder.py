@@ -18,23 +18,26 @@ input =
 encoded = layers.Dense(100, activation='elu')(input)
 encoded = layers.Dense(100, activation='elu')(encoded)
 
-
 '''
     Second layers that produce the tensors
 '''
 
-categoricalGaussian_Head = layers.Dense(100, activation='lin')(encoded) #returns tensor(N,10) TODO ask prof how to return this
-'''
-    Reshape the tensor into (N,13)
-'''
-# gaussian_Head = layers.Dense(100, activation='lin')(encoded) #returns tensor(N,3) TODO ask prof how to return this
+categoricalGaussian_Head = layers.Dense(10, activation='lin')(encoded) #returns tensor(N,10) TODO ask prof how to return this
+gaussian_Head = layers.Dense(3, activation='lin')(encoded) #returns tensor(N,3) TODO ask prof how to return this
 
 '''
     Decoder part
 '''
+decode1 = layers.Dense(100, activation='lin')(categoricalGaussian_Head)
+decode2 = layers.Dense(100, activation ='lin')(gaussian_Head)
 
-# "decoded" is the lossy reconstruction of the input
-decoded = layers.Dense(784, activation='sigmoid')(encoded)
+#sum both tensors together
+decoded = decode1 + decode2
+
+decoded = layers.Dense(100, activation = 'elu')(decoded)
+decoded = layers.Dense(48, activation = 'tanh')(decoded)
+
+
 
 # This model maps an input to its reconstruction
 autoencoder = keras.Model(input_img, decoded)
