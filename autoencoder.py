@@ -22,8 +22,8 @@ encoded = layers.Dense(100, activation='elu')(encoded)
     Second layers that produce the tensors
 '''
 
-categoricalGaussian_Head = layers.Dense(10, activation='lin')(encoded) #returns tensor(N,10) TODO ask prof how to return this
-gaussian_Head = layers.Dense(3, activation='lin')(encoded) #returns tensor(N,3) TODO ask prof how to return this
+categoricalGaussian_Head = layers.Dense(10, activation='lin')(encoded) #returns tensor(N,10)
+gaussian_Head = layers.Dense(3, activation='lin')(encoded) #returns tensor(N,3)
 
 '''
     Decoder part
