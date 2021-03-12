@@ -10,7 +10,10 @@ f = h5py.File('sample.mat', 'r')
 input = np.array(f['sample'])
 input = input[:, :48]
 input = np.reshape(input, (input.shape[0], 48))
+input = tf.convert_to_tensor(input, dtype = tf.float32)
 tf.compat.v1.disable_eager_execution()
+
+#tf.keras.input()
 
 
 '''
@@ -22,6 +25,7 @@ tf.compat.v1.disable_eager_execution()
 
     we need to pass encoded into two dense layers first one to produce each tensor
 '''
+print('\n\n\nHere\n\n\n')
 encoded = layers.Dense(100, activation='elu')(input)
 encoded = layers.Dense(100, activation='elu')(encoded)
 
